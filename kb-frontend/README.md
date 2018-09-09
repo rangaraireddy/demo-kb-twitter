@@ -1,8 +1,8 @@
-Simple React Application
+Simple React Application built on top of Typescript
     
    This is a user facing front end application. Prerequisites for the client are 
      
-   - Have `npm` globally installed in the machine. If not please visit `https://www.npmjs.com/get-npm`
+   - Have `npm` globally installed in the machine. If not, please visit https://www.npmjs.com/get-npm
 
 Installation
 
@@ -10,5 +10,5 @@ Installation
  - Run `npm install`
  - Once all the packages are installed run the project locally with
     `npm start`
- - This serves on your `http://localhost:3000`
+ - This serves on your http://localhost:3000
  
