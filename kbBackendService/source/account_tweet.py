@@ -1,5 +1,4 @@
 import json
-
 import tweepy
 from config.props import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET
 
@@ -9,6 +8,7 @@ from config.props import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOK
 
 def tweet_to_main_account(data, tokens):
     if not tokens:
+        data = eval(data)
         tokens['access_token'] = ACCESS_TOKEN
         tokens['access_secret'] = ACCESS_TOKEN_SECRET
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)

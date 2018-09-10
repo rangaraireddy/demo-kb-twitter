@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { KidboxTwitter } from './twitter/KidboxTwitter';
+import { KidboxTwitter } from './components/KidboxTwitter';
 
 import './App.css';
-import { GetStarted } from './twitter/GetStarted';
-import { Authorization } from './twitter/Models';
+import { FooterDialog } from './components/FooterDialog';
+import { GetStarted } from './components/GetStarted';
+import { Authorization } from './components/Models';
 
 interface IState {
   twitterAccessList: any[];
@@ -39,13 +40,16 @@ class App extends React.Component<{}, IState> {
       isLoggedIn = <h1>Successfully posted on your account @{this.state.twitterName}. Thanks and visit us again!!</h1>
     }
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src="https://cdn.kidbox.me/v/images/facelift/home/kb-logo-new.519e77bba.png" className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome KIDS</h1>
-        </header>
-        {isLoggedIn}
-      </div>
+      <div id="app" className="Site">
+          <div className="App Site-content">
+            <header className="App-header">
+              <img src="https://cdn.kidbox.me/v/images/facelift/home/kb-logo-new.519e77bba.png" className="App-logo" alt="logo" />
+              <h1 className="App-title">Welcome KIDS</h1>
+            </header>
+            {isLoggedIn}
+          </div>
+          <FooterDialog />          
+      </div>      
     );
   }
 

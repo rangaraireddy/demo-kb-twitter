@@ -57,7 +57,7 @@ def verify_credentials_and_get_data(token_list):
     user_data = oauth_user.get(url_user, params=params)
     user_name = json.loads(user_data.text).get("name")
     post_message = {
-        'message': user_name + ' just bought Kidbox. Visit www.kidbox.com for yours.'
+        'message': user_name + ' just bought Kidbox. Visit www.kidbox.com for your box.'
     }
     tokens = {
         'access_token': oauth_token[1],
