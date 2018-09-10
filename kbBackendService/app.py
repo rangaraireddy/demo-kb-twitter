@@ -13,10 +13,10 @@ def index():
 
 @app.route("/kb/tweetToApplication", methods=['POST'])
 def tweet_to_account():
-    return account_tweet.tweet_to_main_account(request.form)
+    return account_tweet.tweet_to_main_account(request.form, None)
 
 
-@app.route("/kb/getToken", methods=['GET'])
+@app.route("/kb/getTokens", methods=['GET'])
 def get_token():
     return resource_tokens.get_resource_tokens()
 
