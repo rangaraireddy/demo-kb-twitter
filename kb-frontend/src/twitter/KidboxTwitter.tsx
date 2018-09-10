@@ -5,7 +5,6 @@ import { CancelFeed } from './CancelFeed';
 import './KidboxTwitter.css';
 
 interface IKBTwitterState {
-    authorizedFeed: any[];
     cancelFeed: any[]
 }
   
@@ -20,7 +19,6 @@ export class KidboxTwitter extends React.Component<IKBTwitterProps, IKBTwitterSt
         this.closeTwitterFeed = this.closeTwitterFeed.bind(this);
         this.authorizeTwitterAccount = this.authorizeTwitterAccount.bind(this);
         this.state = {
-            authorizedFeed: [],
             cancelFeed: []
         };
       }
@@ -42,9 +40,7 @@ export class KidboxTwitter extends React.Component<IKBTwitterProps, IKBTwitterSt
     }
 
     public async authorizeTwitterAccount() {
-        const data = await fetch(`http://localhost:5000/kb/getToken`).then(response => response.json());
-         // tslint:disable-next-line:no-console
-         console.log(data);
+        const data = await fetch(`http://localhost:5000/kb/getTokens`).then(response => response.json());
          this.props.resourceKeys(data);
          window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${data[0]}`
     }

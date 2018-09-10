@@ -8,6 +8,7 @@ import { Authorization } from './twitter/Models';
 interface IState {
   twitterAccessList: any[];
   authenticated: string;
+  twitterName: string;
 }
 
 class App extends React.Component<{}, IState> {
@@ -16,7 +17,8 @@ class App extends React.Component<{}, IState> {
     super(props, context)
     this.state = {
       authenticated: Authorization[Authorization.UnAuthorized],
-      twitterAccessList: []
+      twitterAccessList: [],
+      twitterName: ''
     };
     const queryParams = window.location.search;
     if(queryParams) {
@@ -33,8 +35,8 @@ class App extends React.Component<{}, IState> {
                 </div>
     } else if (this.state.authenticated === Authorization[Authorization.InProgress]) {
       isLoggedIn = <h4>LOADING</h4>
-    } else if (this.state.authenticated === Authorization[Authorization.InProgress]) {
-      isLoggedIn = <div>Successfully posted on your twitter. Thanks again!!</div>
+    } else if (this.state.authenticated === Authorization[Authorization.Authorized]) {
+      isLoggedIn = <h1>Successfully posted on your account @{this.state.twitterName}. Thanks and visit us again!!</h1>
     }
     return (
       <div className="App">
@@ -51,7 +53,7 @@ class App extends React.Component<{}, IState> {
     if (value) {
       const twitterAccountAccess: any[] = [];
       this.setState({
-        twitterAccessList: twitterAccountAccess.concat(<KidboxTwitter key={twitterAccountAccess.length} resourceKeys={this.useKeys} />)
+        twitterAccessList: twitterAccountAccess.concat(<KidboxTwitter key={twitterAccountAccess.length} resourceKeys={this.storeKeys} />)
       }); 
     }
   }
@@ -62,20 +64,33 @@ class App extends React.Component<{}, IState> {
       accumulator[key] = decodeURIComponent(value);
       return accumulator;
     }, {});
-    setInterval(() => {
+    setTimeout(() => {
       this.setState({
         authenticated: ''.concat(Authorization[Authorization.InProgress])
       });
-      
     }, 0);
-    
-    // tslint:disable-next-line:no-console
-    console.log(queryParams);
-    
+    this.getUserData(queryParams);
   }
 
-  public useKeys = (data: any) => {
+  public storeKeys = (data: any) => {
+    window.localStorage.clear();
     window.localStorage.setItem('roKeys', data);
+  }
+
+  public async getUserData(authTokens: any) {
+    const baseUrl = 'http://localhost:5000/kb/fetchUserData';
+    const roKeys = window.localStorage.getItem('roKeys')
+    const roKeysArr = roKeys ? roKeys.split(',') : [];
+    const userDataUrl = `${baseUrl}?roKey=${roKeysArr[0]}&roSecret=${roKeysArr[1]}&verifier=${authTokens.oauth_verifier}`
+    const userData = await fetch(userDataUrl).then(response => response.json());
+    // tslint:disable-next-line:no-console
+    console.log(userData);
+    setTimeout(() => {
+      this.setState({
+        authenticated: ''.concat(Authorization[Authorization.Authorized]),
+        twitterName: userData.screen_name
+      });
+    }, 1000);
   }
 }
 
