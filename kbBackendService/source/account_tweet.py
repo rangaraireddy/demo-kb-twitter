@@ -4,6 +4,9 @@ import tweepy
 from config.props import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET
 
 
+# Randomly "POST" anything to YOUR twitter account once you have your consumer keys and tokens
+
+
 def tweet_to_main_account(data):
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)

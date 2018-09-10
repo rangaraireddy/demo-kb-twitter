@@ -2,7 +2,8 @@ Simple React Application built on top of Typescript
     
    This is a user facing front end application. Prerequisites for the client are 
      
-   - Have `npm` globally installed in the machine. If not, please visit https://www.npmjs.com/get-npm
+   - Have `npm` globally installed in your machine. If not, please visit https://www.npmjs.com/get-npm
+   - Run the backend project https://github.com/rangaraireddy/demo-kb-twitter/tree/master/kbBackendService simaltaneously on your       machine
 
 Installation
 

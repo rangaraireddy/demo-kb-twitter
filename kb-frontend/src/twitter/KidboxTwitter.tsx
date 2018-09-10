@@ -9,7 +9,11 @@ interface IKBTwitterState {
     cancelFeed: any[]
 }
   
-export class KidboxTwitter extends React.Component<{}, IKBTwitterState> {
+interface IKBTwitterProps {
+    resourceKeys: any;
+}
+
+export class KidboxTwitter extends React.Component<IKBTwitterProps, IKBTwitterState> {
     public buttons: HTMLDivElement;
     constructor(props: any, context: any) {
         super(props, context)
@@ -37,10 +41,12 @@ export class KidboxTwitter extends React.Component<{}, IKBTwitterState> {
         );
     }
 
-    private authorizeTwitterAccount = () => {
-        // tslint:disable-next-line:no-console
-        console.log('yayay');
-        
+    public async authorizeTwitterAccount() {
+        const data = await fetch(`http://localhost:5000/kb/getToken`).then(response => response.json());
+         // tslint:disable-next-line:no-console
+         console.log(data);
+         this.props.resourceKeys(data);
+         window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${data[0]}`
     }
 
     private closeTwitterFeed = () => {
